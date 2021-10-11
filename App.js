@@ -1,21 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import styles from './App.scss'
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+function FeedScreen() {
+    return (
+        <View style={styles.container}>
+            <StatusBar />
+            <Text>Feed!</Text>
+        </View>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function NotificationsScreen() {
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Notifications!</Text>
+        </View>
+    );
+}
+
+const Tab = createMaterialTopTabNavigator();
+
+function MyTabs() {
+    return (
+        <Tab.Navigator
+            initialRouteName="Feed"
+            screenOptions={{
+                tabBarActiveTintColor: '#e91e63',
+                tabBarLabelStyle: { fontSize: 12 },
+                tabBarStyle: { backgroundColor: 'powderblue' },
+            }}
+        >
+            <Tab.Screen
+                name="Feed"
+                component={FeedScreen}
+                options={{ tabBarLabel: 'Home' }}
+            />
+            <Tab.Screen
+                name="Notifications"
+                component={NotificationsScreen}
+                options={{ tabBarLabel: 'Updates' }}
+            />
+        </Tab.Navigator>
+    );
+}
+export default function App() {
+    return (
+        <NavigationContainer>
+            <MyTabs />
+        </NavigationContainer>
+    );
+}
