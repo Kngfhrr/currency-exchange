@@ -6,7 +6,7 @@ import {
 } from '../actions/currencies'
 
 const initialState = {
-    currencies: null,
+    currencies: [],
     favorites: [],
     baseCurrency: 'EUR',
     quoteCurrency: 'GBP',
@@ -25,7 +25,9 @@ const reducerCurrencies = (state = initialState, action) => {
         case SET_FAVORITE_CURRENCY:
             return {
                 ...state,
-                favorites: action.favorites,
+                favorites: state.favorites.includes(action.favorites)
+                    ? state.favorites.filter((c) => c !== action.favorites)
+                    : [...state.favorites, action.favorites],
             }
 
         case SET_QUOTE_CURRENCY:

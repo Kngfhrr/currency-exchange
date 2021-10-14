@@ -1,5 +1,6 @@
 import { getLastCurrencies, convertCurrency } from '../api'
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function* checkAsyncStorage() {
@@ -7,7 +8,7 @@ function* checkAsyncStorage() {
         const storage = yield AsyncStorage.getItem('@storage_Key')
         const parsed = JSON.parse(storage)
 
-        yield put({ type: 'SET_FAVORITE_CURRENCY', favorites: parsed })
+        yield put({ type: 'SET_FAVORITE_CURRENCY', favorites: parsed})
     } catch (e) {
         throw new Error(e)
     }
@@ -20,29 +21,31 @@ function* fetchCurrencies(action) {
     } catch (e) {
         throw new Error(e)
     } finally {
-        yield checkAsyncStorage()
+        // yield checkAsyncStorage()
     }
 }
 
 function* setFavoriteCurrency({ currency }) {
     try {
-        const storage = yield AsyncStorage.getItem('@storage_Key')
-        const parsed = JSON.parse(storage)
+        //TODO: need fix on a real device, worked only with emulator
 
-        const isAdded = parsed?.includes(currency)
-
-        yield AsyncStorage.setItem(
-            '@storage_Key',
-            isAdded
-                ? JSON.stringify(parsed.filter((c) => c !== currency))
-                : JSON.stringify([...parsed, currency])
-        )
-
-        const updated = yield AsyncStorage.getItem('@storage_Key')
+        // const storage = yield AsyncStorage.getItem('@storage_Key')
+        // const parsed = JSON.parse(storage)
+        //
+        // const isAdded = parsed?.includes(currency)
+        //
+        // yield AsyncStorage.setItem(
+        //     '@storage_Key',
+        //     isAdded
+        //         ? JSON.stringify(parsed.filter((c) => c !== currency))
+        //         : JSON.stringify([...parsed, currency])
+        // )
+        //
+        // const updated = yield AsyncStorage.getItem('@storage_Key')
 
         yield put({
             type: 'SET_FAVORITE_CURRENCY',
-            favorites: JSON.parse(updated),
+            favorites: currency,
         })
     } catch (e) {
         throw new Error(e)

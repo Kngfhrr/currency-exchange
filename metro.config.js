@@ -4,6 +4,7 @@ module.exports = (async () => {
     const {
         resolver: { sourceExts }
     } = await getDefaultConfig();
+
     return {
         transformer: {
             babelTransformerPath: require.resolve("./transformer.js")

@@ -10,7 +10,6 @@
   "dependencies": {
     "@ant-design/icons-react-native": "^2.3.1",
     "@ant-design/react-native": "^4.2.0",
-    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/material-top-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.4",
@@ -42,10 +41,12 @@
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
-    "sync-storage": "^0.4.2"
+    "sync-storage": "^0.4.2",
+    "@react-native-async-storage/async-storage": "~1.15.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "@expo/metro-config": "^0.1.84"
   },
   "prettier": {
     "trailingComma": "es5",
