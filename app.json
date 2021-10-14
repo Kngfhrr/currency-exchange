@@ -23,13 +23,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "io.expo.test"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "packagerOpts": {
-      "sourceExts": ["js", "jsx", "scss", "sass"],
+      "sourceExts": [
+        "js",
+        "jsx",
+        "scss",
+        "sass"
+      ],
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     }
   }

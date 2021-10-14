@@ -1,43 +1,69 @@
 import styles from '../styles/index.scss'
-import React from 'react';
-import {Text, TextInput, View} from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { Text, View } from 'react-native'
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux'
 
+import { TextInput } from 'react-native-paper'
+import { getCurrencyConversion } from '../actions/currencies'
+import { useTheme } from '@react-navigation/native'
 
-import { selectFavorite } from '../actions/currencies';
+const Converter = (props) => {
+    const { colors } = useTheme()
 
-import Card from "../components/Card";
+    const { baseCurrency, dispatch, quoteCurrency, amount, result } = props
 
+    const [params, setParams] = useState({
+        baseCurrency,
+        quoteCurrency,
+        amount,
+    })
 
-const Convertation = (props) => {
-    const { baseCurrency, dispatch } = props
+    useEffect(() => {
+        getConversion()
+    }, [])
 
-    const handlePress = (currency) => {
-        dispatch(selectFavorite(currency))
-    };
-
+    const getConversion = () => {
+        dispatch(getCurrencyConversion(params))
+    }
 
     return (
         <View style={styles.wrap}>
-           <Text>EU</Text>
+            <Text style={{ color: colors.text, ...styles.header }}>
+                {baseCurrency}
+            </Text>
             <View>
                 <View>
-                    <Text>{baseCurrency}</Text>
-                    <TextInput />
-                </View>
-                <View>
-                    <Text>USD</Text>
-                    <TextInput />
+                    <TextInput
+                        keyboardType="numeric"
+                        onEndEditing={() => {
+                            params.amount && getConversion()
+                        }}
+                        onChangeText={(e) =>
+                            setParams({ ...params, amount: e })
+                        }
+                        value={params.amount.toString()}
+                        // mode={'outli'}
+                        style={styles.input}
+                        label={baseCurrency}
+                    />
+                    <TextInput
+                        value={result.toString() || ''}
+                        // mode={'outlined'}
+                        style={styles.input}
+                        label={quoteCurrency}
+                    />
                 </View>
             </View>
         </View>
-    );
+    )
 }
 
+const mapStateToProps = (state) => ({
+    baseCurrency: state.reducerCurrencies.baseCurrency,
+    quoteCurrency: state.reducerCurrencies.quoteCurrency,
+    amount: state.reducerCurrencies.amount,
+    result: state.reducerCurrencies.result,
+})
 
-const mapStateToProps = state => ({
-    baseCurrency: state.baseCurrency
-});
-
-export default connect(mapStateToProps)(Convertation);
+export default connect(mapStateToProps)(Converter)

@@ -1,15 +1,20 @@
-import React from 'react';
-import {Image, TouchableOpacity, View} from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {COLOR_PALETTE} from "./colors";
+import React from 'react'
+import { View } from 'react-native'
+import { COLOR_PALETTE } from '../helpers/colors'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-const CustomIcon = ({name, checked, style}) => {
+
+const CardIcon = ({ name, checked, style }) => {
     return (
-        <View style={{style}}>
-            <TouchableOpacity>
-                <Icon name={name} size={25} color={!checked ? COLOR_PALETTE.secondary : COLOR_PALETTE.disabled} />
-            </TouchableOpacity>
+        <View style={{ style }}>
+            <Icon
+                name={name}
+                size={25}
+                color={
+                    !checked ? COLOR_PALETTE.secondary : COLOR_PALETTE.disabled
+                }
+            />
         </View>
-
-    )}
-export default CustomIcon
+    )
+}
+export default CardIcon
